@@ -42,7 +42,7 @@ fi
 if [ "$need_to_build" -eq 1 ]; then
     echo "Building Djinni..."
     cd "$base_dir"
-    ./support/sbt compile start-script
+    sbt compile start-script
 else
     echo "Already up to date: Djinni"
 fi
