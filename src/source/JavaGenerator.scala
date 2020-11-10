@@ -156,6 +156,11 @@ class JavaGenerator(spec: Spec) extends Generator(spec) {
           marshal.nullityAnnotation(m.ret).foreach(w.wl)
           w.wl("public abstract " + ret + " " + idJava.method(m.ident) + params.mkString("(", ", ", ")") + throwException + ";")
         }
+        if (i.ext.cpp) {
+          w.wl("/** Release the underlying native object */")
+          w.wl("public abstract void destroy();")
+          w.wl
+        }
         for (m <- i.methods if m.static) {
           skipFirst { w.wl }
           writeMethodDoc(w, m, idJava.local)
@@ -180,6 +185,7 @@ class JavaGenerator(spec: Spec) extends Generator(spec) {
             }
             w.wl
             w.wl("private native void nativeDestroy(long nativeRef);")
+            w.wl("@Override")
             w.wl("public void destroy()").braced {
               w.wl("boolean destroyed = this.destroyed.getAndSet(true);")
               w.wl("if (!destroyed) nativeDestroy(this.nativeRef);")
