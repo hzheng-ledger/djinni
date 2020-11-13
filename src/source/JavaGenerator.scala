@@ -203,7 +203,9 @@ class JavaGenerator(spec: Spec) extends Generator(spec) {
               w.wl
               w.wl(s"@Override")
               w.wl(s"public $ret $meth($params)$throwException").braced {
-                w.wl("assert !this.destroyed.get() : \"trying to use a destroyed object\";")
+                w.wl("if (this.destroyed.get())").braced {
+                  w.wl("throw new RuntimeException(" + "\"" + s"trying to use a destroyed object ($javaClass$typeParamList)" + "\");")
+                }
                 w.wl(s"${returnStmt}native_$meth(this.nativeRef${preComma(args)});")
               }
               w.wl(s"private native $ret native_$meth(long _nativeRef${preComma(params)});")
