@@ -114,6 +114,7 @@ class ScalaImplicitsGenerator(spec: Spec) extends Generator(spec) {
       case "double" => "Double"
       case "long" => "Long"
       case "bool" => "Boolean"
+      case "boolean" => "Boolean"
       case "I32" => "Int"
       case "short" => "Short"
       case "I64" => "Long"
