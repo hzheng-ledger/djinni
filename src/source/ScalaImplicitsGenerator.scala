@@ -94,7 +94,7 @@ class ScalaImplicitsGenerator(spec: Spec) extends Generator(spec) {
       s"${param.ident.name}: ${javaToScalaType(marshal.typename(param.ty))}"
   }
 
-  val ListCallbackPattern = "([a-zA-Z]+)ListCallback".r
+  val ListCallbackPattern = "([a-zA-Z0-9]+)ListCallback".r
   val CallbackPattern = "([a-zA-Z0-9]+)Callback".r
   private def callbackToUnderlyingType(param: Field): String = {
     param.ty.expr.ident.name match {
