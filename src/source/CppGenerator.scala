@@ -73,6 +73,7 @@ class CppGenerator(spec: Spec) extends Generator(spec) {
           for (o <- e.options) {
             w.wl(s"case $self::${idCpp.enum(o.ident.name)}: return ${'"' + idCpp.enum(o.ident.name) + '"'};")
           }
+          w.wl("default: return \"UNKNOWN\";")
         }
       }
       w.wl("template <>")
